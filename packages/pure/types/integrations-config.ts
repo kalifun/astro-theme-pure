@@ -17,12 +17,24 @@ export const IntegrationConfigSchema = () =>
      * Add a random quote to the footer (default on homepage footer).
      * The quote will be fetched from the specified server and the target will be replaced with the quote.
      */
-    quote: z.object({
-      /** The server to fetch the quote from. */
-      server: z.string(),
-      /** target: string, but (data: unknown) => string */
-      target: z.string()
-    }),
+    quote: z
+      .object({
+        /** Set `false` to disable the Quote UI (no network request). */
+        enable: z.boolean().default(true),
+        /** The server to fetch the quote from. Required when `enable` is true. */
+        server: z.string().optional(),
+        /** Expression body: `(data) => string`. Required when `enable` is true. */
+        target: z.string().optional()
+      })
+      .superRefine((q, ctx) => {
+        if (q.enable === false) return
+        if (!q.server?.trim()) {
+          ctx.addIssue({ code: 'custom', message: 'quote.server is required when quote.enable is true', path: ['server'] })
+        }
+        if (!q.target?.trim()) {
+          ctx.addIssue({ code: 'custom', message: 'quote.target is required when quote.enable is true', path: ['target'] })
+        }
+      }),
 
     /** UnoCSS typography */
     typography: z.object({

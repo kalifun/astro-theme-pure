@@ -10,7 +10,18 @@ export const remarkAddZoomable: Plugin<[{ className?: string }], Root> =
   ({ className = 'zoomable' }) =>
   (tree) => {
     visit(tree, 'image', (node: Node) => {
-      node.data = { hProperties: { class: className } }
+      // Merge — do not replace `node.data` or Astro / MDX image metadata is lost and `src` can break.
+      const n = node as Node & { data?: Record<string, unknown> }
+      n.data ??= {}
+      const prev = (n.data.hProperties ?? {}) as Record<string, unknown>
+      const existing = prev.class
+      const nextClass =
+        existing === undefined || existing === ''
+          ? className
+          : Array.isArray(existing)
+            ? [...existing, className].join(' ')
+            : `${String(existing)} ${className}`.trim()
+      n.data.hProperties = { ...prev, class: nextClass }
     })
   }
 
