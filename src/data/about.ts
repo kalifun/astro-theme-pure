@@ -103,7 +103,7 @@ export const aboutPageData = {
           },
           {
             name: 'Codex',
-            description: 'Lightweight coding agent that runs in your terminal',
+            description: 'a coding agent from OpenAI',
             href: 'https://www.openai.com/api/codex/',
             icon: import('@/assets/tools/codex.svg?raw')
           },

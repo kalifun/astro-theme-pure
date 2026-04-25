@@ -21,7 +21,7 @@ const { class: className, methods, ...props } = Astro.props
 <div class={cn('flex flex-col justify-center gap-4 sm:flex-row', className)} {...props}>
   {
     methods.map((item) => (
-      <div class='sponsorship-card relative justify-center overflow-hidden rounded-xl border bg-white'>
+      <div class='sponsorship-card liquid-glass relative justify-center overflow-hidden rounded-xl'>
         <div class='sponsorship-card-icon absolute bottom-0 end-0 start-0 top-0 flex items-center justify-center transition-opacity'>
           <Icon class='size-20' name={item.icon} />
         </div>

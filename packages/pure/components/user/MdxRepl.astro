@@ -6,11 +6,11 @@ interface Props {
 const { width } = Astro.props
 ---
 
-<div class='mdx-repl overflow-hidden rounded-xl border'>
+<div class='mdx-repl liquid-glass overflow-hidden rounded-xl'>
   <div class='mdx-repl-container flex flex-col items-center justify-center p-4'>
     <slot />
   </div>
-  <div class='bg-muted'>
+  <div class='mdx-repl-desc border-t border-[hsl(var(--foreground)/0.08)] bg-[hsl(var(--muted)/0.72)] backdrop-blur-lg dark:border-[hsl(0_0%_100%/0.1)] dark:bg-[hsl(var(--muted)/0.5)]'>
     <slot name='desc' />
   </div>
 </div>
@@ -19,8 +19,9 @@ const { width } = Astro.props
   .mdx-repl {
     background: linear-gradient(
       135deg,
-      hsl(var(--primary) / 0.1) 0%,
-      hsl(var(--background) / 1) 100%
+      hsl(var(--primary) / 0.14) 0%,
+      hsl(var(--background) / 0.38) 52%,
+      hsl(var(--foreground) / 0.04) 100%
     );
   }
 

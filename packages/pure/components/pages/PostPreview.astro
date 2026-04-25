@@ -19,14 +19,13 @@ const postDate = data.updatedDate ?? data.publishDate
 
 <li
   class={cn('post-preview', className)}
-  style={detailed &&
-    data.heroImage?.color &&
+  style={data.heroImage?.color &&
     `--preview-highlight:color-mix(in srgb,${data.heroImage.color} 40%,hsl(var(--foreground)/var(--un-text-opacity,1)));
     --preview-highlight-bg:hsl(from ${data.heroImage.color} h s l/20%)`}
 >
   <a
     class={cn(
-      'block w-full relative group rounded-2xl border bg-background transition-colors ease-in-out px-5 py-2.5 hover:bg-muted hover:text-primary',
+      'liquid-glass block w-full relative group rounded-2xl transition-colors ease-in-out px-5 py-2.5 hover:text-primary',
       detailed && 'max-sm:px-4 sm:py-5',
       detailed && data.heroImage && 'max-md:pt-24'
     )}
@@ -126,7 +125,15 @@ const postDate = data.updatedDate ?? data.publishDate
       );
     }
     .post-preview:hover {
-      & > a,
+      & > a {
+        background: color-mix(
+          in srgb,
+          var(--preview-highlight-bg, hsl(var(--muted) / var(--un-bg-opacity, 1))) 52%,
+          transparent
+        ) !important;
+        backdrop-filter: blur(30px) saturate(1.85);
+        -webkit-backdrop-filter: blur(30px) saturate(1.85);
+      }
       & .tag-list a {
         background-color: var( --preview-highlight-bg, hsl(var(--muted) / var(--un-bg-opacity, 1))) !important;
       }
